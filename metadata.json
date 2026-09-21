@@ -1,0 +1,6 @@
+{
+  "name": "JKSSB Papers",
+  "description": "Access JKSSB previous year question papers from 2020 to 2026 organized by year, subject, and examination.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

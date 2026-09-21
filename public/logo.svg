@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="primaryGrad" x1="8" y1="6" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1E3A8A"/>
+      <stop offset="1" stop-color="#0284C7"/>
+    </linearGradient>
+    <linearGradient id="pageGrad" x1="16" y1="12" x2="48" y2="52" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F1F5F9"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Outer Rounded Shield / Frame -->
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#primaryGrad)"/>
+  
+  <!-- Document Base -->
+  <path d="M18 14H38L46 22V50C46 51.1046 45.1046 52 44 52H18C16.8954 52 16 51.1046 16 50V16C16 14.8954 16.8954 14 18 14Z" fill="url(#pageGrad)"/>
+  
+  <!-- Fold Corner -->
+  <path d="M38 14V20C38 21.1046 38.8954 22 40 22H46L38 14Z" fill="#CBD5E1"/>
+  
+  <!-- Document Lines -->
+  <line x1="22" y1="28" x2="34" y2="28" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="22" y1="34" x2="40" y2="34" stroke="#94A3B8" stroke-width="2.5" stroke-linecap="round"/>
+  
+  <!-- Badge with Checkmark / Academic symbol -->
+  <circle cx="36" cy="42" r="9" fill="#0284C7"/>
+  <path d="M32.5 42L35 44.5L40 39.5" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
