@@ -373,10 +373,18 @@ export default function App() {
                   Back to Home
                 </button>
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                  JKSSB Question Papers Archive
+                  {filters.year !== 'all' 
+                    ? `JKSSB Question Papers — Year ${filters.year}`
+                    : filters.subject !== 'all'
+                    ? `JKSSB ${filters.subject.toUpperCase()} Question Papers`
+                    : 'JKSSB Question Papers Archive'}
                 </h1>
                 <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-2xl">
-                  Verified question papers from 2020 to 2026. Use the filters below to instantly pinpoint papers by discipline, exam cycle, or year.
+                  {filters.year === 2026
+                    ? '2026 question papers are coming soon. Current verified archives cover 2020 through 2025 across all subjects.'
+                    : filters.year !== 'all'
+                    ? `Showing all 5 subject disciplines for ${filters.year}. Each subject folder contains the complete 2020–2025 question archive.`
+                    : 'Verified question papers from 2020 to 2025 across English, Mathematics, Science, SST, and Urdu.'}
                 </p>
               </div>
 

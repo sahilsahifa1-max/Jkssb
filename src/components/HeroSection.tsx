@@ -142,12 +142,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onOpenSear
                           Featured Archive
                         </span>
                         <h2 className="text-sm font-bold text-slate-900 dark:text-white leading-tight">
-                          Mathematics 2026 Series
+                          Mathematics Archive (2020–2025)
                         </h2>
                       </div>
                     </div>
                     <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
-                      Verified
+                      Verified Drive
                     </span>
                   </div>
 
@@ -155,8 +155,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onOpenSear
                   <div className="mt-4 space-y-2.5">
                     <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-100 dark:border-slate-800/80">
                       <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1 font-mono">
-                        <span>POST: GRADUATE LEVEL</span>
-                        <span>MARKS: 120</span>
+                        <span>SERIES: 2020–2025</span>
+                        <span>OFFICIAL DRIVE</span>
                       </div>
                       <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 leading-snug">
                         Q1. If the ratio of speed of two trains is 7:8 and the second train runs 400 km in 4 hours, then the speed of the first train is:
@@ -178,14 +178,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onOpenSear
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
                   <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400">
                     <Calendar className="w-3.5 h-3.5" />
-                    <span>2020 – 2026 Archive</span>
+                    <span>2020 – 2025 Archive</span>
                   </div>
 
                   <button
-                    onClick={() => onNavigate({ view: 'papers', subject: 'mathematics', year: 2026 })}
+                    onClick={() => onNavigate({ view: 'papers', subject: 'mathematics', year: 2024 })}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-sky-600 dark:text-sky-400 hover:bg-sky-50 dark:hover:bg-sky-950/60 transition-colors"
                   >
-                    View Paper
+                    View Papers
                     <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>

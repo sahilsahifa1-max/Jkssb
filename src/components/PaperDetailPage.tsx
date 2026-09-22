@@ -114,10 +114,16 @@ export const PaperDetailPage: React.FC<PaperDetailPageProps> = ({
             <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
               {paper.subjectName}
             </span>
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-              Exam: {paper.exam}
-            </span>
-            {paper.verified && (
+            {paper.isComingSoon ? (
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                Coming soon
+              </span>
+            ) : (
+              <span className="px-3 py-1 rounded-full text-xs font-bold bg-sky-50 text-sky-700 dark:bg-sky-950/60 dark:text-sky-300 border border-sky-200 dark:border-sky-800">
+                2020–2025 Archive
+              </span>
+            )}
+            {paper.verified && !paper.isComingSoon && (
               <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 Verified Drive Folder
@@ -126,13 +132,20 @@ export const PaperDetailPage: React.FC<PaperDetailPageProps> = ({
           </div>
 
           {/* Title H1 */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight mb-4">
-            {paper.title}
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight mb-2">
+            {paper.displayTitle || `${paper.subjectName} — ${paper.year}`}
           </h1>
 
+          {/* Archive Notice */}
+          <p className="text-sm sm:text-base font-medium text-slate-700 dark:text-slate-300 mb-3">
+            {paper.isComingSoon
+              ? '2026 papers will be indexed once examination cycles are completed.'
+              : `Question paper available in the ${paper.subjectName} archive.`}
+          </p>
+
           {/* Department & Description */}
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-            Official question paper and question sets for the {paper.exam} under the {paper.department}. Verified and accessible directly via Google Drive.
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+            Official question paper repository for {paper.exam} under the {paper.department}. Verified and accessible directly via Google Drive.
           </p>
 
           {/* Key Facts Box */}
@@ -146,8 +159,8 @@ export const PaperDetailPage: React.FC<PaperDetailPageProps> = ({
               <strong className="text-sm font-bold text-slate-900 dark:text-white">{paper.subjectName}</strong>
             </div>
             <div>
-              <span className="text-slate-400 dark:text-slate-500 font-medium block">Medium / Lang</span>
-              <strong className="text-sm font-bold text-slate-900 dark:text-white">{paper.language}</strong>
+              <span className="text-slate-400 dark:text-slate-500 font-medium block">Archive Span</span>
+              <strong className="text-sm font-bold text-slate-900 dark:text-white">2020–2025</strong>
             </div>
             <div>
               <span className="text-slate-400 dark:text-slate-500 font-medium block">Source</span>
@@ -157,16 +170,22 @@ export const PaperDetailPage: React.FC<PaperDetailPageProps> = ({
 
           {/* Primary Action Buttons */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2 pb-6 border-b border-slate-100 dark:border-slate-800">
-            <a
-              href={paper.driveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-sky-600 hover:bg-sky-700 active:bg-sky-800 shadow-md shadow-sky-600/20 transition-all text-center"
-            >
-              <FolderOpen className="w-4 h-4" />
-              <span>Open Paper in Google Drive</span>
-              <ExternalLink className="w-3.5 h-3.5 opacity-80" />
-            </a>
+            {paper.isComingSoon ? (
+              <span className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 text-center cursor-not-allowed">
+                2026 Papers Coming Soon
+              </span>
+            ) : (
+              <a
+                href={paper.driveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-bold text-sm text-white bg-sky-600 hover:bg-sky-700 active:bg-sky-800 shadow-md shadow-sky-600/20 transition-all text-center uppercase tracking-wide"
+              >
+                <FolderOpen className="w-4 h-4" />
+                <span>OPEN GOOGLE DRIVE ARCHIVE</span>
+                <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+              </a>
+            )}
 
             <button
               onClick={handleShareOrCopy}
@@ -181,7 +200,7 @@ export const PaperDetailPage: React.FC<PaperDetailPageProps> = ({
           {paper.notes && (
             <div className="mt-6 p-4 rounded-xl bg-sky-50/60 dark:bg-sky-950/40 border border-sky-100 dark:border-sky-900/60 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
               <strong className="font-semibold text-sky-800 dark:text-sky-300 block mb-1">
-                Aspirant Archival Note:
+                Archival Note:
               </strong>
               {paper.notes}
             </div>
@@ -191,7 +210,7 @@ export const PaperDetailPage: React.FC<PaperDetailPageProps> = ({
           <div className="mt-5 flex items-start gap-2.5 text-xs text-slate-500 dark:text-slate-400">
             <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
             <p>
-              This link directly opens the verified Google Drive folder repository for {paper.subjectName}. You can view the question sheet, print questions, or download PDF files directly without any login wall.
+              This link directly opens the verified Google Drive folder repository for {paper.subjectName} (2020–2025 archive). You can view the question sheet, print questions, or download PDF files directly without any login wall.
             </p>
           </div>
 

@@ -12,7 +12,8 @@ import {
   Globe, 
   PenTool, 
   CheckCircle2,
-  CornerDownLeft
+  CornerDownLeft,
+  FolderOpen
 } from 'lucide-react';
 import { QuestionPaper, NavRoute, SubjectId } from '../types';
 import { PAPERS, SUBJECTS } from '../data/papers';
@@ -106,12 +107,12 @@ export const CommandSearchModal: React.FC<CommandSearchModalProps> = ({
   };
 
   const quickPills = [
-    { label: 'Mathematics 2026', q: 'Mathematics 2026' },
-    { label: 'Science 2025', q: 'Science 2025' },
-    { label: 'English 2024', q: 'English 2024' },
-    { label: 'SST 2023', q: 'SST 2023' },
-    { label: 'Urdu 2024', q: 'Urdu 2024' },
-    { label: 'Graduate Level', q: 'Graduate' },
+    { label: 'Mathematics 2024', q: 'Mathematics 2024' },
+    { label: 'Science 2023', q: 'Science 2023' },
+    { label: 'English 2025', q: 'English 2025' },
+    { label: 'Urdu 2020', q: 'Urdu 2020' },
+    { label: 'SST 2022', q: 'SST 2022' },
+    { label: 'Mathematics Archive', q: 'Mathematics' },
   ];
 
   // Helper to highlight matching text
@@ -169,7 +170,7 @@ export const CommandSearchModal: React.FC<CommandSearchModalProps> = ({
                 setQuery(e.target.value);
                 setSelectedIndex(0);
               }}
-              placeholder="Search by subject, year (2020–2026), exam, or keyword..."
+              placeholder="Search e.g. Mathematics 2024, Science 2023, English 2025, Urdu..."
               className="flex-1 bg-transparent text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 text-base outline-none font-medium"
             />
             {query && (
@@ -228,29 +229,48 @@ export const CommandSearchModal: React.FC<CommandSearchModalProps> = ({
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
                           <h4 className="text-sm font-bold text-slate-900 dark:text-white truncate">
-                            {highlightMatch(paper.title, trimmed)}
+                            {highlightMatch(paper.displayTitle || paper.title, trimmed)}
                           </h4>
                           <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[11px] font-semibold bg-sky-100 text-sky-800 dark:bg-sky-900/60 dark:text-sky-300">
                             {paper.year}
                           </span>
-                          {paper.verified && (
-                            <span className="hidden sm:inline-flex items-center gap-0.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-medium">
-                              <CheckCircle2 className="w-3 h-3" />
-                              Verified
+                          {paper.isComingSoon ? (
+                            <span className="inline-flex items-center text-[10px] font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 px-1.5 py-0.5 rounded">
+                              Coming soon
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center text-[10px] font-bold text-sky-700 dark:text-sky-300 bg-sky-50 dark:bg-sky-950/60 px-1.5 py-0.5 rounded border border-sky-200 dark:border-sky-800">
+                              2020–2025 archive
                             </span>
                           )}
                         </div>
                         <p className="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
-                          {paper.exam} • {paper.department}
+                          {paper.isComingSoon
+                            ? 'Awaiting 2026 exam cycle release'
+                            : `Question paper available in the ${paper.subjectName} archive.`}
                         </p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2 shrink-0">
-                      <span className="text-xs font-semibold text-sky-600 dark:text-sky-400 flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                        Open
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
+                      {!paper.isComingSoon ? (
+                        <a
+                          href={paper.driveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 active:bg-sky-800 transition-colors shadow-xs"
+                          title={`Open ${paper.subjectName} Google Drive folder`}
+                        >
+                          <FolderOpen className="w-3.5 h-3.5" />
+                          <span className="hidden xs:inline">Open Archive</span>
+                          <ExternalLink className="w-3 h-3 opacity-80" />
+                        </a>
+                      ) : (
+                        <span className="text-xs font-semibold text-slate-400 dark:text-slate-500">
+                          Coming soon
+                        </span>
+                      )}
                     </div>
                   </div>
                 );
